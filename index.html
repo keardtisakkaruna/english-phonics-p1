@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phonics ป.1 — ฝึกออกเสียง A–Z บัตรคำ และผสมคำ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Mali:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">Aa</div>
+        <div class="brand-text">
+          <h1>Phonics ป.1</h1>
+          <p>ฝึกออกเสียง A–Z บัตรคำ และผสมคำ</p>
+        </div>
+      </div>
+
+      <nav class="mode-nav" role="tablist" aria-label="เลือกโหมดการเรียน">
+        <button class="mode-tab is-active" role="tab" aria-selected="true" data-view="az">
+          <span class="tab-icon" aria-hidden="true">🔤</span>
+          <span>A–Z โฟนิกส์</span>
+        </button>
+        <button class="mode-tab" role="tab" aria-selected="false" data-view="flashcards">
+          <span class="tab-icon" aria-hidden="true">🃏</span>
+          <span>บัตรคำภาพ</span>
+        </button>
+        <button class="mode-tab" role="tab" aria-selected="false" data-view="blender">
+          <span class="tab-icon" aria-hidden="true">🧩</span>
+          <span>ผสมคำ CVC</span>
+        </button>
+      </nav>
+
+      <div class="utility-bar">
+        <button id="speedToggle" class="util-btn" type="button" title="สลับความเร็วเสียงอ่าน">
+          <span id="speedIcon" aria-hidden="true">🐇</span>
+          <span id="speedLabel">เสียงปกติ</span>
+        </button>
+        <button id="sfxToggle" class="util-btn is-icon-only" type="button" title="เปิด/ปิดเสียงเอฟเฟกต์" aria-label="เปิดหรือปิดเสียงเอฟเฟกต์">
+          <span id="sfxIcon" aria-hidden="true">🔔</span>
+        </button>
+        <button id="fullscreenBtn" class="util-btn" type="button" title="ขยายเต็มจอสำหรับสอนหน้าชั้น">
+          <span aria-hidden="true">🖥️</span>
+          <span class="hide-sm">จอใหญ่</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-stage">
+      <!-- ==================== VIEW 1: A-Z PHONICS ==================== -->
+      <section id="view-az" class="view-panel is-active" aria-label="บทเรียน A ถึง Z โฟนิกส์">
+        <div class="az-layout">
+          <!-- Left / Top: Big Focus Stage Card -->
+          <div class="az-stage-card" id="azStageCard">
+            <div class="stage-top-row">
+              <span class="type-pill" id="azTypePill">สระ (Vowel)</span>
+              <div class="stage-nav-arrows">
+                <button id="azPrevBtn" class="circle-btn" type="button" aria-label="ตัวอักษรก่อนหน้า">◀</button>
+                <span class="stage-counter" id="azCounter">1 / 26</span>
+                <button id="azNextBtn" class="circle-btn" type="button" aria-label="ตัวอักษรถัดไป">▶</button>
+              </div>
+            </div>
+
+            <div class="stage-hero">
+              <button id="azLetterBigBtn" class="big-letter-tile" type="button" title="กดเพื่อฟังเสียงโฟนิกส์">
+                <span class="big-upper" id="azUpper">A</span><span class="big-lower" id="azLower">a</span>
+              </button>
+
+              <div class="big-word-visual" id="azWordVisual" role="button" tabindex="0" title="กดเพื่อฟังคำศัพท์">
+                <div class="visual-circle">
+                  <span class="visual-emoji" id="azEmoji">🍎</span>
+                </div>
+                <div class="visual-word-block">
+                  <div class="visual-word" id="azWordText">Apple</div>
+                  <div class="visual-thai-row">
+                    <span class="thai-read" id="azThaiRead">แอพ-เพิล</span>
+                    <span class="thai-meaning" id="azMeaning">แอปเปิล</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Dedicated Phonics Drill Buttons -->
+            <div class="audio-drill-bar">
+              <button id="btnSpeakLetter" class="drill-btn drill-letter" type="button">
+                <span class="drill-icon" aria-hidden="true">🔊</span>
+                <span class="drill-text">
+                  <strong>ชื่อตัวอักษร</strong>
+                  <small id="drillLetterSub">A</small>
+                </span>
+              </button>
+
+              <button id="btnSpeakPhonics" class="drill-btn drill-phonics" type="button">
+                <span class="drill-icon" aria-hidden="true">🗣️</span>
+                <span class="drill-text">
+                  <strong>เสียงโฟนิกส์</strong>
+                  <small id="drillPhonicsSub">/æ/ แอะ</small>
+                </span>
+              </button>
+
+              <button id="btnSpeakWord" class="drill-btn drill-word" type="button">
+                <span class="drill-icon" aria-hidden="true">📖</span>
+                <span class="drill-text">
+                  <strong>อ่านคำศัพท์</strong>
+                  <small id="drillWordSub">Apple</small>
+                </span>
+              </button>
+            </div>
+
+            <!-- 3 Example Words Selector -->
+            <div class="example-words-wrap">
+              <div class="example-words-label">คำศัพท์ตัวอย่าง (แตะเพื่อเปลี่ยนภาพและฟังเสียง):</div>
+              <div class="example-words-row" id="azWordChips"></div>
+            </div>
+          </div>
+
+          <!-- Right / Bottom: A-Z Magnetic Tile Board -->
+          <div class="az-board-panel">
+            <div class="board-filter-bar">
+              <button class="filter-pill is-active" type="button" data-filter="all">ทั้งหมด (26)</button>
+              <button class="filter-pill pill-vowel" type="button" data-filter="vowel">สระ A E I O U</button>
+              <button class="filter-pill pill-consonant" type="button" data-filter="consonant">พยัญชนะ (21)</button>
+            </div>
+            <div class="az-grid" id="azGrid" role="list" aria-label="ตารางตัวอักษร A ถึง Z"></div>
+            <div class="legend-note">
+              <span class="legend-item"><i class="dot dot-vowel"></i> สีแดง = สระ (Vowels)</span>
+              <span class="legend-item"><i class="dot dot-consonant"></i> สีฟ้า = พยัญชนะ (Consonants)</span>
+              <span class="legend-kbd hide-sm">คีย์ลัดครู: ◀ ▶ เปลี่ยนตัว · Spacebar อ่านเสียง</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 2: PICTURE FLASHCARDS ==================== -->
+      <section id="view-flashcards" class="view-panel" aria-label="บัตรคำภาพ">
+        <div class="fc-toolbar">
+          <div class="fc-deck-pills" id="fcDeckPills">
+            <button class="filter-pill is-active" type="button" data-deck="az">A–Z (26 คำ)</button>
+            <button class="filter-pill" type="button" data-deck="cvc-a">ผสมคำ สระ a</button>
+            <button class="filter-pill" type="button" data-deck="cvc-e">ผสมคำ สระ e</button>
+            <button class="filter-pill" type="button" data-deck="cvc-i">ผสมคำ สระ i</button>
+            <button class="filter-pill" type="button" data-deck="cvc-o">ผสมคำ สระ o</button>
+            <button class="filter-pill" type="button" data-deck="cvc-u">ผสมคำ สระ u</button>
+          </div>
+
+          <div class="fc-actions">
+            <button id="fcQuizToggle" class="action-chip" type="button" title="ซ่อนคำศัพท์ด้านหน้าไว้ทายนักเรียน">
+              <span aria-hidden="true">🙈</span>
+              <span id="fcQuizLabel">โหมดทายคำ: ปิด</span>
+            </button>
+            <button id="fcShuffleBtn" class="action-chip" type="button" title="สลับลำดับบัตรคำ">
+              <span aria-hidden="true">🔀</span> สลับไพ่
+            </button>
+            <button id="fcAutoBtn" class="action-chip" type="button" title="เล่นบัตรคำอัตโนมัติทีละใบ">
+              <span aria-hidden="true">▶️</span> <span id="fcAutoLabel">เล่นอัตโนมัติ</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="fc-stage">
+          <button id="fcPrevBtn" class="fc-side-arrow" type="button" aria-label="บัตรคำก่อนหน้า">◀</button>
+
+          <div class="fc-card-scene">
+            <div class="fc-card" id="fcCard" role="button" tabindex="0" aria-label="แตะบัตรคำเพื่อพลิกดูเฉลย">
+              <!-- Front -->
+              <div class="fc-face fc-front">
+                <div class="fc-card-top">
+                  <span class="fc-badge" id="fcFrontBadge">A–Z</span>
+                  <span class="fc-count" id="fcCountFront">1 / 26</span>
+                </div>
+                <div class="fc-emoji-wrap">
+                  <span class="fc-emoji" id="fcEmoji">🍎</span>
+                </div>
+                <div class="fc-front-word" id="fcFrontWord">Apple</div>
+                <div class="fc-hint" id="fcFlipHint">แตะที่บัตรเพื่อพลิกดูคำอ่านและความหมาย</div>
+              </div>
+
+              <!-- Back -->
+              <div class="fc-face fc-back">
+                <div class="fc-card-top">
+                  <span class="fc-badge badge-mint">เฉลย & คำอ่าน</span>
+                  <span class="fc-count" id="fcCountBack">1 / 26</span>
+                </div>
+                <div class="fc-back-word" id="fcBackWord">Apple</div>
+                <div class="fc-phonics-tag" id="fcPhonicsTag">/æ/ แอะ</div>
+                <div class="fc-thai-box">
+                  <div class="fc-thai-read" id="fcThaiRead">อ่านว่า: แอพ-เพิล</div>
+                  <div class="fc-thai-meaning" id="fcThaiMeaning">แอปเปิล</div>
+                </div>
+                <div class="fc-hint">แตะอีกครั้งเพื่อพลิกกลับด้านหน้า</div>
+              </div>
+            </div>
+          </div>
+
+          <button id="fcNextBtn" class="fc-side-arrow" type="button" aria-label="บัตรคำถัดไป">▶</button>
+        </div>
+
+        <div class="fc-bottom-controls">
+          <button id="fcSpeakBtn" class="big-speak-btn" type="button">
+            <span aria-hidden="true">🔊</span> ฟังเสียงอ่านคำนี้
+          </button>
+          <button id="fcFlipBtn" class="secondary-big-btn" type="button">
+            <span aria-hidden="true">🔄</span> พลิกบัตรคำ
+          </button>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: CVC WORD BLENDER ==================== -->
+      <section id="view-blender" class="view-panel" aria-label="โรงงานผสมคำ CVC">
+        <div class="blender-family-bar" id="blenderFamilyBar">
+          <button class="vowel-tab is-active" type="button" data-vowel="a">สระ a (แอะ)</button>
+          <button class="vowel-tab" type="button" data-vowel="e">สระ e (เอะ)</button>
+          <button class="vowel-tab" type="button" data-vowel="i">สระ i (อิ)</button>
+          <button class="vowel-tab" type="button" data-vowel="o">สระ o (เอาะ)</button>
+          <button class="vowel-tab" type="button" data-vowel="u">สระ u (อะ)</button>
+        </div>
+
+        <div class="blender-stage">
+          <div class="blender-instruction">
+            แตะที่ตัวอักษรทีละตัวเพื่อฟังเสียง หรือกดปุ่ม <strong>“ผสมเสียง!”</strong> เพื่อรวมเป็นคำ
+          </div>
+
+          <!-- 3 Magnetic Sound Tiles -->
+          <div class="cvc-track" id="cvcTrack">
+            <button class="cvc-tile is-consonant" id="cvcTile0" type="button" data-index="0">
+              <span class="cvc-char">c</span>
+              <span class="cvc-cue">เคอะ</span>
+            </button>
+            <span class="cvc-plus" aria-hidden="true">+</span>
+            <button class="cvc-tile is-vowel" id="cvcTile1" type="button" data-index="1">
+              <span class="cvc-char">a</span>
+              <span class="cvc-cue">แอะ</span>
+            </button>
+            <span class="cvc-plus" aria-hidden="true">+</span>
+            <button class="cvc-tile is-consonant" id="cvcTile2" type="button" data-index="2">
+              <span class="cvc-char">t</span>
+              <span class="cvc-cue">เทอะ</span>
+            </button>
+          </div>
+
+          <!-- Blend Action Button -->
+          <div class="blender-actions">
+            <button id="cvcBlendBtn" class="blend-go-btn" type="button">
+              <span aria-hidden="true">✨</span> ผสมเสียง! (Blend)
+            </button>
+            <button id="cvcWholeWordBtn" class="secondary-big-btn" type="button">
+              <span aria-hidden="true">🔊</span> อ่านทั้งคำ
+            </button>
+          </div>
+
+          <!-- Result Reveal Card -->
+          <div class="cvc-result-card" id="cvcResultCard">
+            <div class="cvc-result-emoji" id="cvcResultEmoji">🐱</div>
+            <div class="cvc-result-info">
+              <div class="cvc-result-word" id="cvcResultWord">cat</div>
+              <div class="cvc-result-meta">
+                <span class="thai-read" id="cvcResultThai">แคท</span>
+                <span class="thai-meaning" id="cvcResultMeaning">แมว</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Word Strip in Current Vowel Family -->
+        <div class="cvc-word-strip-wrap">
+          <div class="cvc-strip-title">เลือกคำศัพท์ในกลุ่มนี้:</div>
+          <div class="cvc-word-strip" id="cvcWordStrip"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast for status feedback -->
+  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
